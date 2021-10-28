@@ -1,7 +1,7 @@
 import {Human} from './human.js'
-import {chat} from './chat.js'
-import { patients } from './patient.js'
-import { salleDattente } from './lieux.js'
+import {Lieux} from './lieux.js'
+
+
 export class Doctor extends Human{
     constructor(nom,argent,cabinet){
         super(nom, argent)
@@ -33,20 +33,15 @@ export class Doctor extends Human{
                 break;
         }
     }
-    patientIn(patients){
-        console.log(`Entrer svp mr ${patients.nom}`);
-        patients.etatDeSante = 'traitement'
-        this.cabinet[0].push(patients)
-        salleDattente.salle.splice(patients)
+    patientIn(patient){
+        console.log(`Entrer svp mr ${patient.nom}`);
+        patient.etatDeSante = 'traitement'
+        this.cabinet.push(patient);
+        Lieux.salleDattente.splice(Lieux.salleDattente.indexOf(patient), 1)
     }
-    patientOut(patients){
-        console.log(`au revoir mr ${patients.nom}`);
-        patients.etatDeSante = 'malade'
-        this.cabinet[0].splice(patients)
-        salleDattente.salle.push(patients)
+    patientOut(patient){
+        console.log(`au revoir mr ${patient.nom}`);
+        this.cabinet.pop();
+        Lieux.salleDattente.push(patient)
     }
 }
-
-
-//docteur Debugger
-export let Debugger = new Doctor('Debugger', 0, [[], chat])
